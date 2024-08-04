@@ -32,6 +32,12 @@
                 <p><strong>Soort Schade:</strong> {{ selectedReport.damageDetails.damageType }}</p>
                 <p><strong>Acute Actie Vereist:</strong> {{ selectedReport.damageDetails.urgentAction }}</p>
                 <p><strong>Omschrijving:</strong> {{ selectedReport.damageDetails.description }}</p>
+                <div v-if="selectedReport.damageDetails.photos && selectedReport.damageDetails.photos.length">
+                  <h6>Foto's van Schade Opnemen:</h6>
+                  <div class="photos">
+                    <img v-for="photo in selectedReport.damageDetails.photos" :src="photo.url" :key="photo.name" :alt="photo.name" class="img-thumbnail me-2">
+                  </div>
+                </div>
               </div>
               
               <!-- Maintenance Details -->
@@ -41,6 +47,12 @@
                 <p><strong>Soort Onderhoud:</strong> {{ selectedReport.maintenanceDetails.maintenanceType }}</p>
                 <p><strong>Acute Actie Vereist:</strong> {{ selectedReport.maintenanceDetails.urgentAction }}</p>
                 <p><strong>Kostenindicatie:</strong> {{ selectedReport.maintenanceDetails.costEstimate }}</p>
+                <div v-if="selectedReport.maintenanceDetails.photos && selectedReport.maintenanceDetails.photos.length">
+                  <h6>Foto's van Achterstallig Onderhoud:</h6>
+                  <div class="photos">
+                    <img v-for="photo in selectedReport.maintenanceDetails.photos" :src="photo.url" :key="photo.name" :alt="photo.name" class="img-thumbnail me-2">
+                  </div>
+                </div>
               </div>
               
               <!-- Technical Inspection Details -->
@@ -51,6 +63,12 @@
                 <p><strong>Gemelde Storingen:</strong> {{ selectedReport.technicalDetails.reportedIssues }}</p>
                 <p><strong>Test Procedure:</strong> {{ selectedReport.technicalDetails.testProcedure }}</p>
                 <p><strong>Opmerkingen:</strong> {{ selectedReport.technicalDetails.remarks }}</p>
+                <div v-if="selectedReport.technicalDetails.photos && selectedReport.technicalDetails.photos.length">
+                  <h6>Foto's van Technische Installaties:</h6>
+                  <div class="photos">
+                    <img v-for="photo in selectedReport.technicalDetails.photos" :src="photo.url" :key="photo.name" :alt="photo.name" class="img-thumbnail me-2">
+                  </div>
+                </div>
               </div>
               
               <!-- Modification Inventory Details -->
@@ -61,36 +79,14 @@
                 <p><strong>Beschrijving Modificatie:</strong> {{ selectedReport.modificationDetails.modificationDescription }}</p>
                 <p><strong>Te Ondernemen Actie:</strong> {{ selectedReport.modificationDetails.actionToTake }}</p>
                 <p><strong>Opmerkingen:</strong> {{ selectedReport.modificationDetails.remarks }}</p>
-              </div>
-
-              <!-- Photos -->
-              <div v-if="selectedReport.damageDetails.photos && selectedReport.damageDetails.photos.length">
-                <h6>Foto's van Schade Opnemen:</h6>
-                <div class="photos">
-                  <img v-for="photo in selectedReport.damageDetails.photos" :src="photo.url" :key="photo.name" :alt="photo.name" class="img-thumbnail me-2">
+                <div v-if="selectedReport.modificationDetails.photos && selectedReport.modificationDetails.photos.length">
+                  <h6>Foto's van Modificaties:</h6>
+                  <div class="photos">
+                    <img v-for="photo in selectedReport.modificationDetails.photos" :src="photo.url" :key="photo.name" :alt="photo.name" class="img-thumbnail me-2">
+                  </div>
                 </div>
               </div>
 
-              <div v-if="selectedReport.maintenanceDetails.photos && selectedReport.maintenanceDetails.photos.length">
-                <h6>Foto's van Achterstallig Onderhoud:</h6>
-                <div class="photos">
-                  <img v-for="photo in selectedReport.maintenanceDetails.photos" :src="photo.url" :key="photo.name" :alt="photo.name" class="img-thumbnail me-2">
-                </div>
-              </div>
-
-              <div v-if="selectedReport.technicalDetails.photos && selectedReport.technicalDetails.photos.length">
-                <h6>Foto's van Technische Installaties:</h6>
-                <div class="photos">
-                  <img v-for="photo in selectedReport.technicalDetails.photos" :src="photo.url" :key="photo.name" :alt="photo.name" class="img-thumbnail me-2">
-                </div>
-              </div>
-
-              <div v-if="selectedReport.modificationDetails.photos && selectedReport.modificationDetails.photos.length">
-                <h6>Foto's van Modificaties:</h6>
-                <div class="photos">
-                  <img v-for="photo in selectedReport.modificationDetails.photos" :src="photo.url" :key="photo.name" :alt="photo.name" class="img-thumbnail me-2">
-                </div>
-              </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sluiten</button>
@@ -104,10 +100,53 @@
 </template>
 
 <script>
-import axios from 'axios';
 import * as bootstrap from 'bootstrap';
 import HeaderComponent from '../components/HeaderComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
+import screenshot from '../assets/screenshot.png'; // Import de screenshot afbeelding
+
+const mockReports = [
+  {
+    id: "99cb",
+    title: "Nieuw",
+    damage: true,
+    maintenance: true,
+    technical: true,
+    modification: true,
+    damageDetails: {
+      location: "net",
+      newDamage: "yes",
+      damageType: "moedwillig",
+      date: "2024-07-28",
+      urgentAction: "yes",
+      description: "nvt",
+      photos: [{ name: "screenshot", url: screenshot }]
+    },
+    maintenanceDetails: {
+      location: "jjijijjij",
+      maintenanceType: "schilderwerk",
+      urgentAction: "yes",
+      costEstimate: "500-1500",
+      photos: []
+    },
+    technicalDetails: {
+      location: "HHHHHHH",
+      installationType: "luchtverversing",
+      reportedIssues: "NVT",
+      testProcedure: "yes",
+      remarks: "NVT",
+      photos: []
+    },
+    modificationDetails: {
+      location: "NVT",
+      executedBy: "onbekend",
+      modificationDescription: "NVTVTV",
+      actionToTake: "laten verwijderen",
+      remarks: "nvtvt",
+      photos: []
+    }
+  }
+];
 
 export default {
   name: 'KnowledgeBase',
@@ -132,21 +171,20 @@ export default {
   methods: {
     async fetchReports() {
       try {
-        const response = await axios.get('http://localhost:3000/reports');
-        this.reports = response.data;
+        // Gebruik mock data in plaats van een API-aanroep
+        this.reports = mockReports;
       } catch (error) {
         console.error('Error fetching reports:', error);
       }
     },
     async showReportDetails(reportId) {
       try {
-        const response = await axios.get(`http://localhost:3000/reports/${reportId}`);
-        this.selectedReport = {
-          ...response.data,
-          damageDetails: response.data.damageDetails || {},
-          maintenanceDetails: response.data.maintenanceDetails || {},
-          technicalDetails: response.data.technicalDetails || {},
-          modificationDetails: response.data.modificationDetails || {}
+        // Gebruik mock data in plaats van een API-aanroep
+        this.selectedReport = mockReports.find(report => report.id === reportId) || {
+          damageDetails: {},
+          maintenanceDetails: {},
+          technicalDetails: {},
+          modificationDetails: {}
         };
         const reportModal = new bootstrap.Modal(document.getElementById('reportModal'));
         reportModal.show();
