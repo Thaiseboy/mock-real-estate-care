@@ -160,3 +160,4 @@ De professional past richtlijnen met betrekking tot beveiliging (zoals guides va
 
 **Voldaan:** OWASP-beveiligingsrichtlijnen, WCAG 2.1 toegankelijkheidsrichtlijnen en bruikbaarheidsbest practices zijn toegepast in het project.
 # mock-real-estate-care
+# mock-real-estate-care
