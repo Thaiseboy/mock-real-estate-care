@@ -159,5 +159,3 @@ De professional integreert routing en state management binnen de applicatie om d
 De professional past richtlijnen met betrekking tot beveiliging (zoals guides van OWASP), accessibility (WCAG 2.1 A) en usability toe zoals best practices en style guides die beschikbaar zijn voor een desbetreffend framework.
 
 **Voldaan:** OWASP-beveiligingsrichtlijnen, WCAG 2.1 toegankelijkheidsrichtlijnen en bruikbaarheidsbest practices zijn toegepast in het project.
-# mock-real-estate-care
-# mock-real-estate-care
